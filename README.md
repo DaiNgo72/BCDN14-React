@@ -1,15 +1,18 @@
 # Kiểm tra không thấy: npm -v
+
 Bước 1: tạo folder - react-tutorial
 Bước 2: mở new terminal
-Bước 3: npm create vite . 
+Bước 3: npm create vite .
+
 - tạo dự ngay chính folder react-tutorial này
 
 # Kiểm tra có npm
+
 - npm create vite
 
 # Cách mở nhanh terminal trong vscode: ctrl + `
 
-# Chỉ có 1 folder làm việc trong vscode thôi.
+# Chỉ có 1 folder làm việc trong vscode thôi
 
 # npm i && npm run dev
 
@@ -19,16 +22,19 @@ Bước 3: npm create vite .
 - npm install | npm i : cài đặt các thư viện cần thiết cho dự án
 ??? Làm sao để biết thư viện cần cài đặt là thư viện nào
 - dựa vào file package.json: mô tả dự án của chúng ta
+
 + các thư viện được liệt kê ở dependencies + devDependencies
 
 - dependencies vs devDependencies ???
+
 + devDependencies: những thư viện chỉ phụ vụ cho dev phát triển ứng dụng.
-+ dependencies: những thư viện thật sự cần thiết của dự án.
+- dependencies: những thư viện thật sự cần thiết của dự án.
 
 - sau khi gõ npm i -> sinh ra 1 file package-lock.json
 ??? package.json vs package-lock.json
+
 + package.json: liệt kê ra được khoảng version mà thư viện có thể cài đặt được.
-+ package-lock.json: cài chính xác version là bao nhiêu.
+- package-lock.json: cài chính xác version là bao nhiêu.
 
 - node_modules: lưu trữ tất cả thư viện
 - public: lưu trữ những file static (tĩnh) -> file audio, hình ảnh, logo, video, ...
@@ -40,17 +46,20 @@ Bước 3: npm create vite .
 - vite.config.js: tool để giúp chúng ta chạy được dự án.
 
 # Để chạy dự án
+
 - npm run dev -> đi vào sâu
 
-
 # React
+
 - Tên thẻ custom phải viết hoa chữ cái đầu
-    + vì sao?
+  - vì sao?
 - Có 2 cách sử dụng thẻ custom
-    + 1 mở 1 đóng
-    + chỉ có mở -> kết thúc thẻ mở phải `/>`
+  - 1 mở 1 đóng
+  - chỉ có mở -> kết thúc thẻ mở phải `/>`
 
 - `class` -> `className`
 
 - Phải có 1 thẻ bao bọc ngoài cùng trước khi return. ✅
 - ❌ không được return về những thẻ song song hay cùng cấp nhau.
+
+- binding data: Đưa giá trị của biến fullName lên trên giao diện. Dùng dấu `{}`

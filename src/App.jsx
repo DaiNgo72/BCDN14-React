@@ -1,20 +1,10 @@
-import { Header } from "./Header";
-import { Footer } from "./Footer";
-import { Navigation } from "./Navigation";
-import { Content } from "./Content";
+import { BindingData } from "./BindingData";
+// shift + alt + o: để xóa những file import thừa
 
 function App() {
   return (
     <>
-      <Header />
-
-      <div className="content">
-        <Navigation />
-
-        <Content />
-      </div>
-
-      <Footer />
+      <BindingData />
     </>
   );
 }
