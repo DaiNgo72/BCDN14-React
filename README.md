@@ -36,3 +36,21 @@ Bước 3: npm create vite .
 - .gitignore: liệt kê những file, folder chúng ta không muốn lưu vào lịch sử commit, không muốn khác biết,...
 
 - npm i: cài thư viện, tự động sinh ra folder node_modules cho chúng ta.
+- .eslintrc: quy định của dự án.
+- vite.config.js: tool để giúp chúng ta chạy được dự án.
+
+# Để chạy dự án
+- npm run dev -> đi vào sâu
+
+
+# React
+- Tên thẻ custom phải viết hoa chữ cái đầu
+    + vì sao?
+- Có 2 cách sử dụng thẻ custom
+    + 1 mở 1 đóng
+    + chỉ có mở -> kết thúc thẻ mở phải `/>`
+
+- `class` -> `className`
+
+- Phải có 1 thẻ bao bọc ngoài cùng trước khi return. ✅
+- ❌ không được return về những thẻ song song hay cùng cấp nhau.
