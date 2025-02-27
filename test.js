@@ -1,0 +1,1 @@
+console.log("kết quả: 3 + 5 = ", 3 + 5);
