@@ -81,3 +81,27 @@ Bước 3: npm create vite .
 # Inline Style
 
 - style trong jsx chỉ nhận Object
+
+# JSX vs HTML
+
+Mọi event trong jsx đều viết dưới dạng camelCase: `on` viết thường chữ tiếp theo sẽ viết hoa.
+
+- onClick: jsx
+- onclick: js thuần
+
+# Arrow Function
+
+# useState
+
+- tạo biến là state của component.
+khi biến đó thay đổi thì UI được cập nhật.
+
+- phải dùng useState để tạo state của component, và cập nhật state đó
+bằng cách sử dụng hàm cập nhật lại state do useState trả về.
+
+```js
+const [bgc, setBgc] = useState('green');
+```
+
+> Tóm lại sử dụng useState khi chúng ta cần UI thay đổi khi giá trị của biến thay đổi. \n
+> state -> UI
