@@ -105,3 +105,9 @@ const [bgc, setBgc] = useState('green');
 
 > Tóm lại sử dụng useState khi chúng ta cần UI thay đổi khi giá trị của biến thay đổi. \n
 > state -> UI
+
+# Render Image, Audio, Icon, Svg, Video, ...
+
+- lưu tại folder public -> /tới folder đó là xong
+
+- không lưu tại folder public thì phải dùng import để lấy đường dẫn
