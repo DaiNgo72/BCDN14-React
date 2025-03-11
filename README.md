@@ -23,17 +23,19 @@ Bước 3: npm create vite .
 ??? Làm sao để biết thư viện cần cài đặt là thư viện nào
 - dựa vào file package.json: mô tả dự án của chúng ta
 
-+ các thư viện được liệt kê ở dependencies + devDependencies
+- các thư viện được liệt kê ở dependencies + devDependencies
 
 - dependencies vs devDependencies ???
 
-+ devDependencies: những thư viện chỉ phụ vụ cho dev phát triển ứng dụng.
+- devDependencies: những thư viện chỉ phụ vụ cho dev phát triển ứng dụng.
+
 - dependencies: những thư viện thật sự cần thiết của dự án.
 
 - sau khi gõ npm i -> sinh ra 1 file package-lock.json
 ??? package.json vs package-lock.json
 
-+ package.json: liệt kê ra được khoảng version mà thư viện có thể cài đặt được.
+- package.json: liệt kê ra được khoảng version mà thư viện có thể cài đặt được.
+
 - package-lock.json: cài chính xác version là bao nhiêu.
 
 - node_modules: lưu trữ tất cả thư viện
@@ -63,3 +65,19 @@ Bước 3: npm create vite .
 - ❌ không được return về những thẻ song song hay cùng cấp nhau.
 
 - binding data: Đưa giá trị của biến fullName lên trên giao diện. Dùng dấu `{}`
+
+# node
+
+- môi trường để thực thi js
+
+# npm create vite
+
+- tạo dự án mới react
+
+# JSX
+
+- js + html = jsx
+
+# Inline Style
+
+- style trong jsx chỉ nhận Object

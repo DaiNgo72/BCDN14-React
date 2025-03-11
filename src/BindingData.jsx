@@ -18,14 +18,12 @@ export function BindingData() {
   };
 
   function hello() {
-    return 10
+    return 10;
   }
 
   return (
     <>
-      { hello() }
-
-
+      {hello()}
       {card}
       {/* Đưa giá trị của biến fullName lên trên giao diện */}
       <p> Nguyen Van A </p>
