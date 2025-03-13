@@ -111,3 +111,9 @@ const [bgc, setBgc] = useState('green');
 - lưu tại folder public -> /tới folder đó là xong
 
 - không lưu tại folder public thì phải dùng import để lấy đường dẫn
+
+# Module CSS
+- lý do: css thông thường sẽ ảnh hưởng ở phạm vi global
+- 
+
+# Tailwind CSS
