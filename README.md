@@ -117,3 +117,10 @@ const [bgc, setBgc] = useState('green');
 - 
 
 # Tailwind CSS
+
+v3 vs v4: khác cách cài đặt
+
+
+# npm i -D: cài đặt cho thư viện ở dưới phần devDependencies
+# npm i -D vite@latest: cài version mới nhất
+# npm i -D vite@6.2.0: cài đúng version mong muốn

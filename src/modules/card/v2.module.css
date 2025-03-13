@@ -1,9 +1,17 @@
+/* ._card_jf32_0 */
 .card {
-    padding: 40px 60px;
     border: 1px solid red;
     border-radius: 20px;
 }
 
-.button {
-    
+.card:hover {}
+
+.box-shadow {
+    box-shadow: 1px 1px 1px 1px black;
 }
+
+.bgc {
+    background-color: rgb(3, 3, 148);
+}
+
+.button {}

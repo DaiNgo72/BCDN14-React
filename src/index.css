@@ -1,19 +1,8 @@
-header {
-    background-color: black;
-    color: white;
-}
+@import "tailwindcss";
 
-footer {
-    background-color: blue;
-    color: white;
-}
+@theme {
+    --spacing: 2px;
 
-.content {
-    display: flex;
-}
-
-.box {
-    width: 100px;
-    height: 100px;
-    background-color: black;
+    --breakpoint-3xl: 100rem;
+    --breakpoint-sm: 30rem;
 }

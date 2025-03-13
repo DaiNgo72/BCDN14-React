@@ -1,5 +1,18 @@
 .card {
-    padding: 40px 60px;
     border: 1px solid black;
     border-radius: 20px;
+}
+
+
+/***/
+
+/* utils css */
+/* atomic css */
+/* -> tailwindcss */
+.d-flex {
+    display: flex;
+}
+
+.p-46 {
+    padding: 40px 60px;
 }
