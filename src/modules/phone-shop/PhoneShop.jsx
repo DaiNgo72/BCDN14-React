@@ -43,9 +43,11 @@ const mangSanPham = [
 export function PhoneShop() {
   return (
     <>
-      {mangSanPham.map((sanPham) => {
-        return <CardItem key={sanPham.maSP} />;
-      })}
+      <div className="flex gap-4 justify-evenly">
+        {mangSanPham.map((sanPham) => {
+          return <CardItem key={sanPham.maSP} />;
+        })}
+      </div>
 
       <br />
       <CardDetail />

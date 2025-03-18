@@ -1,10 +1,14 @@
 export function CardItem() {
   return (
     <>
-      <div className="border border-solid border-black rounded-lg">
-        <img className="w-[200px] h-[200px] object-cover" alt="" src="" />
+      <div className="border border-solid border-black rounded-lg p-6">
+        <img
+          className="w-[200px] h-[200px] object-cover mx-auto"
+          alt=""
+          src="/phone/applephone.jpg"
+        />
 
-        <h2 className="font-bold text-[30px]">Iphone 16</h2>
+        <h2 className="font-bold text-[30px]">Iphone XS Max</h2>
 
         <button className="bg-green-700 text-white px-[12px] py-[8px] rounded-lg cursor-pointer">
           Xem chi tiết
