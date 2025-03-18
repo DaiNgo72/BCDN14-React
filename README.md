@@ -106,21 +106,44 @@ const [bgc, setBgc] = useState('green');
 > Tóm lại sử dụng useState khi chúng ta cần UI thay đổi khi giá trị của biến thay đổi. \n
 > state -> UI
 
-# Render Image, Audio, Icon, Svg, Video, ...
+# Render Image, Audio, Icon, Svg, Video
 
 - lưu tại folder public -> /tới folder đó là xong
 
 - không lưu tại folder public thì phải dùng import để lấy đường dẫn
 
 # Module CSS
+
 - lý do: css thông thường sẽ ảnh hưởng ở phạm vi global
-- 
+-
 
 # Tailwind CSS
 
 v3 vs v4: khác cách cài đặt
 
-
 # npm i -D: cài đặt cho thư viện ở dưới phần devDependencies
+
 # npm i -D vite@latest: cài version mới nhất
+
 # npm i -D vite@6.2.0: cài đúng version mong muốn
+
+# Props
+
+- Khi chúng ta muốn truyền dữ liệu từ component cha vào component con.
+
+- Không có chiều ngược lại đó là truyền dữ liệu con ra cha. (**note vẫn có trick để làm được - nâng cao)
+
+# Cách tạo component (SOLID)
+
+- Khi định nghĩa component thì những props phải tuân theo nguyên tắc:
+
+- Chỗ nào cần dữ liệu động thì chúng ta sẽ định nghĩa tên prop cho dữ liệu đó.
+- Không được phụ thuộc vào nơi mình sử dụng.
+- Hay là api trả về.
+- Phải để người sử dụng tuân theo component của mình. Ngược lại thì component sai (lỏ) ❌.
+
+# Khi state thay đổi
+
+- thì cả component chạy lại.
+- component cha chạy lại -> component con chạy lại.
+- Khi giá trị mới === giá trị cũ thì react sẽ không cập nhật state => không re-render => không cập nhật UI

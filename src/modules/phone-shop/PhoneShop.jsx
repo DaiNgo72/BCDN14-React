@@ -1,5 +1,7 @@
+import { useState } from "react";
 import { CardDetail } from "./CardDetail";
-import { CardItem } from "./CardItem";
+import { CardList } from "./CardList";
+import { Cart } from "./Cart";
 
 const mangSanPham = [
   {
@@ -41,16 +43,72 @@ const mangSanPham = [
 ];
 
 export function PhoneShop() {
+  // state không có chạy lại
+  // Không có khai báo lại mới
+  const [phoneDetail, setPhoneDetail] = useState(mangSanPham[2]);
+  const [carts, setCarts] = useState([]);
+
+  console.log("re-run");
+
+  // Khi component re-render
+  // Thì nó sẽ khởi tạo mới lại từ đầu
+  let count = 10;
+
+  const handleAddToCart = (product) => {
+    const findItem = carts.find((item) => {
+      return item.maSP === product.maSP;
+    });
+
+    if (findItem) {
+      // đã có trong giỏ hàng
+      // Thử code tính năng
+    } else {
+      // Chưa có trong giỏ hàng
+
+      //   C1:
+      carts.push({
+        ...product,
+        soLuong: 1,
+      });
+
+      setCarts([...carts]); // 0x112
+
+      // C2:
+      //   setCarts([
+      //     ...carts,
+      //     {
+      //       ...product,
+      //       soLuong: 1,
+      //     },
+      //   ]);
+    }
+  };
+
   return (
     <>
-      <div className="flex gap-4 justify-evenly">
-        {mangSanPham.map((sanPham) => {
-          return <CardItem key={sanPham.maSP} />;
-        })}
+      <h1 className="text-4xl text-center mb-8">Bài tập giỏ hàng</h1>
+
+      <div className="text-end container mx-auto mb-8">
+        <Cart data={carts} />
       </div>
 
+      <CardList
+        handleAddToCart={handleAddToCart}
+        setPhoneDetail={setPhoneDetail}
+        listProduct={mangSanPham}
+      />
+
       <br />
-      <CardDetail />
+      <CardDetail
+        name={phoneDetail.tenSP}
+        image={phoneDetail.hinhAnh}
+        screen={phoneDetail.manHinh}
+        os={phoneDetail.heDieuHanh}
+        frontCamera={phoneDetail.cameraTruoc}
+        backCamera={phoneDetail.cameraSau}
+        ram={phoneDetail.ram}
+        rom={phoneDetail.rom}
+      />
     </>
   );
 }
