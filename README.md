@@ -173,3 +173,13 @@ v3 vs v4: khác cách cài đặt
 # Deep clone
 
 # Function làm bước trung gian
+
+# State
+- các component Count độc lập về state
+- Khi `Count 1` thay đổi thì `Count 2`, `Count 3` không bị ảnh hưởng.
+
+```jsx
+    <Count />
+    <Count />
+    <Count />
+```

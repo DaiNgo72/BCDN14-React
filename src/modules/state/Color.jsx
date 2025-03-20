@@ -3,12 +3,14 @@ import { useState } from "react";
 // ## Pesudo
 const __useState = (defaultValue) => {
   let value =
-    typeof defaultValue === "function" 
-    ? defaultValue() 
-    : defaultValue;
+    typeof defaultValue === "function" ? defaultValue() : defaultValue;
 
   const setValue = (newValue) => {
-    value = newValue;
+    if (typeof newValue === "function") {
+      value = newValue(value);
+    } else {
+      value = newValue;
+    }
   };
 
   return [value, setValue];
