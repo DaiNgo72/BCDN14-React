@@ -46,7 +46,20 @@ export function PhoneShop() {
   // state không có chạy lại
   // Không có khai báo lại mới
   const [phoneDetail, setPhoneDetail] = useState(mangSanPham[2]);
-  const [carts, setCarts] = useState([]);
+
+  // Mỗi khi reload lại trang
+  // b1: kiểm tra localStorage có lưu giá trị carts hay không
+  // b2: nếu có thì giá trị default của carts là giá trị lưu trong localStorage
+  // b3: nếu không có thì là mảng rỗng []
+  const [carts, setCarts] = useState(() => {
+    let carts = localStorage.getItem("carts");
+
+    if (carts) {
+      return JSON.parse(carts);
+    } else {
+      return [];
+    }
+  });
 
   console.log("re-run");
 
@@ -54,7 +67,11 @@ export function PhoneShop() {
   // Thì nó sẽ khởi tạo mới lại từ đầu
   let count = 10;
 
+  console.log("carts:::", carts);
+
   const handleAddToCart = (product) => {
+    let newCarts;
+
     const findItem = carts.find((item) => {
       return item.maSP === product.maSP;
     });
@@ -62,26 +79,55 @@ export function PhoneShop() {
     if (findItem) {
       // đã có trong giỏ hàng
       // Thử code tính năng
-    } else {
-      // Chưa có trong giỏ hàng
+      const cloneArr = [...carts];
 
-      //   C1:
-      carts.push({
-        ...product,
-        soLuong: 1,
+      const findItem = cloneArr.find((cart) => {
+        return cart.maSP === product.maSP;
       });
 
-      setCarts([...carts]); // 0x112
+      // Cập nhật lại giá trị của thuộc tính
+      findItem.soLuong += 1;
+
+      // setCarts(cloneArr);
+      newCarts = cloneArr;
+    } else {
+      // Chưa có trong giỏ hàng
+      //   C1:
+      // carts.push({
+      //   ...product,
+      //   soLuong: 1,
+      // });
+
+      // setCarts([...carts]); // 0x222
 
       // C2:
-      //   setCarts([
-      //     ...carts,
-      //     {
-      //       ...product,
-      //       soLuong: 1,
-      //     },
-      //   ]);
+      newCarts = [
+        ...carts, // copy tất cả các element của carts
+
+        // thêm mới một phần tử vào trong mảng hiện tại, thêm vào cuối mảng.
+        {
+          ...product,
+          soLuong: 1,
+        },
+      ];
     }
+
+    // setCarts(newCarts);
+
+    // // array, object => localStorage => number, string, boolean, null, undefined
+    // // để lưu string
+
+    // // JSON: string, có định dạng format cụ thể
+    // // " { "age": 20 } "
+
+    // localStorage.setItem("carts", JSON.stringify(newCarts));
+
+    handleUpdateCarts(newCarts);
+  };
+
+  const handleUpdateCarts = (newCarts) => {
+    localStorage.setItem("carts", JSON.stringify(newCarts));
+    setCarts(newCarts);
   };
 
   return (
@@ -89,7 +135,7 @@ export function PhoneShop() {
       <h1 className="text-4xl text-center mb-8">Bài tập giỏ hàng</h1>
 
       <div className="text-end container mx-auto mb-8">
-        <Cart data={carts} />
+        <Cart data={carts} setCarts={handleUpdateCarts} />
       </div>
 
       <CardList

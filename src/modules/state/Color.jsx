@@ -2,7 +2,10 @@ import { useState } from "react";
 
 // ## Pesudo
 const __useState = (defaultValue) => {
-  let value = defaultValue;
+  let value =
+    typeof defaultValue === "function" 
+    ? defaultValue() 
+    : defaultValue;
 
   const setValue = (newValue) => {
     value = newValue;

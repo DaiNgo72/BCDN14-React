@@ -147,3 +147,29 @@ v3 vs v4: khác cách cài đặt
 - thì cả component chạy lại.
 - component cha chạy lại -> component con chạy lại.
 - Khi giá trị mới === giá trị cũ thì react sẽ không cập nhật state => không re-render => không cập nhật UI
+- Giá trị mới phải khác giá trị cũ thì react mới re-render hay là cập nhật lại giao diện
+
+# [LocalStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage)
+
+- Giúp chúng ta lưu trữ dữ liệu cho dù người dùng có reload lại trang web. (theme, config của trang web mình như font chữ, ...)
+
+- 2 method cần nắm:
+
+1. getItem: truyền key vào để lấy giá trị.
+2. setItem: truyền key và giá trị của key đó.
+
+- Chỉ chấp nhận lưu giá trị dưới định dạng string
+
+# JSON
+
+- JSON là string
+- Khác string là JSON nó có format nhất định để biểu diễn các kiểu dữ liệu của JS.
+
+- 2 method cần nắm:
+
+1. stringify: chuyển đổi kiểu dữ liệu của JS bất kỳ -> string
+2. parse: chuyển đổi JSON(string) -> về kiểu dữ liệu của JS
+
+# Deep clone
+
+# Function làm bước trung gian
