@@ -1,7 +1,12 @@
-import { Form } from "./modules/form/Form";
+import { TodoList } from "./modules/life-cycle/TodoList";
 
 function App() {
-  return <Form />;
+
+  return (
+    <>
+      <TodoList />
+    </>
+  );
 }
 
 export default App;

@@ -175,6 +175,7 @@ v3 vs v4: khác cách cài đặt
 # Function làm bước trung gian
 
 # State
+
 - các component Count độc lập về state
 - Khi `Count 1` thay đổi thì `Count 2`, `Count 3` không bị ảnh hưởng.
 
@@ -183,3 +184,64 @@ v3 vs v4: khác cách cài đặt
     <Count />
     <Count />
 ```
+
+# Life cycle
+
+- Vòng đời của component
+
+1. Sinh ra (mounting)
+
+- Lần đầu xuất hiện trên giao diện
+
+2. Trưởng thành (updating)
+
+- Khi props hoặc state thay đổi
+
+3. Mất (un-mounting)
+
+- Xóa khỏi giao diện
+
+# useEffect
+
+- Can thiệp vào từng vòng đời của component để xử lý.
+
+```js
+
+const useEffect = ( callback, dependencies ) => {
+
+  // Chạy sau khi UI được render xong
+  callback()
+
+}
+
+```
+
+- Giống nhau: mọi trường hợp callback luôn được gọi mỗi khi mounting
+
+- callback:
+- dependencies:
+
+1. undefined - callback được gọi mỗi lần re-render (0.1%)
+
+```js
+// lỗi hay gặp cần tránh
+const [c, setC] = useState(0);
+
+useEffect(()=>{
+  setC(c + 1);
+});
+```
+
+2. [] - callback chỉ chạy một lần duy nhất (mounting) - (50%)
+
+- không có sự phụ thuộc vào cái gì hết nên nó chỉ chạy 1 lần duy nhất duy nhất thông
+
+*Use case*:
+  2.1. sử dụng để call api khi mới vừa vào trang web.
+  2.2. sử dụng để thêm sự kiện cho đối tượng document hoặc body.
+
+3. [<giá_trị_1>, <giá_trị_2>] - (50%)
+
+- callback sẽ chạy khi <giá_trị_1> hoặc <giá_trị_2> thay đổi khi so sánh trước và sau (render)
+
+4. Un-mounting - pending
