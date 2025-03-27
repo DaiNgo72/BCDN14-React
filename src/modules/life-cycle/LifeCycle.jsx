@@ -18,6 +18,40 @@ export function LifeCycle() {
     console.log("thay đổi");
   }, [like]);
 
+  // -----------
+  useEffect(() => {
+    console.log("mounted 2");
+
+    const cleanUp = () => {
+      // Can thiệp vào quá trình un-mounting
+      debugger;
+      console.log("clean up");
+    };
+    return cleanUp;
+  }, []);
+
+  // usecase
+  useEffect(() => {
+    const handle = () => {
+      console.log("click body");
+    };
+
+    document.body.addEventListener("click", handle);
+
+    return () => {
+      document.body.removeEventListener("click", handle);
+    };
+  }, []);
+
+  useEffect(() => {
+    console.log("like::callback::", like);
+
+    // closure
+    return () => {
+      console.log("like::cleanup::", like);
+    };
+  }, [like]);
+
   return (
     <div>
       LifeCycle

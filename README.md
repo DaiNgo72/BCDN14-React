@@ -246,6 +246,9 @@ useEffect(()=>{
 
 4. Un-mounting - pending
 
+- khi vào 1 component đăng ký sự kiện thì sau khi component đó biến mất thì phải xóa sự kiện đăng ký đó.
+- cleanup: dọn dẹp cho lần render trước đó.
+
 ## Rules
 
 - Tạo component thì dùng declaration function
@@ -260,10 +263,12 @@ const clone = JSON.parse(JSON.stringify(data))
 ```
 
 # SetState có phải là bất đồng bộ hay không
+
 - setState chạy như cơ chế bất đồng bộ
 
 # nếu như setState chạy đồng bộ thì sao?
+
 - performance kém vì phải re-render nhiều lần
 
 # Event Bubbling vs capturing
-https://javascript.info/bubbling-and-capturing#stopping-bubbling
+<https://javascript.info/bubbling-and-capturing#stopping-bubbling>
