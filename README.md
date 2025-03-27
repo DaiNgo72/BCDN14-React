@@ -245,3 +245,25 @@ useEffect(()=>{
 - callback sẽ chạy khi <giá_trị_1> hoặc <giá_trị_2> thay đổi khi so sánh trước và sau (render)
 
 4. Un-mounting - pending
+
+## Rules
+
+- Tạo component thì dùng declaration function
+- Những hàm xử lý trong component thì sử dụng arrow function
+
+# Cách để lấy một element trên UI bằng React
+
+# Deep Clone
+
+```js
+const clone = JSON.parse(JSON.stringify(data))
+```
+
+# SetState có phải là bất đồng bộ hay không
+- setState chạy như cơ chế bất đồng bộ
+
+# nếu như setState chạy đồng bộ thì sao?
+- performance kém vì phải re-render nhiều lần
+
+# Event Bubbling vs capturing
+https://javascript.info/bubbling-and-capturing#stopping-bubbling

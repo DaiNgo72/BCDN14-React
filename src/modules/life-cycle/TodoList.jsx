@@ -1,11 +1,28 @@
 import { Fragment } from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import { Loading } from "./Loading";
 
 const BASE_URL = "https://67b732162bddacfb270e0e96.mockapi.io";
 
 export function TodoList() {
   const [inputTodo, setInputTodo] = useState("");
+  // inputTodo = ""
+
   const [listTodo, setListTodo] = useState([]);
+
+  // step 1: Tạo một biến để trỏ đến element
+  const inputRef = useRef();
+
+  // fetching, success, fail, idle
+  /**
+   * fetching: đang gọi api
+   * success: gọi thành công
+   * fail: gọi thất bại
+   * idle: chưa làm gì hết
+   */
+  const [fetchStatus, setFetchStatus] = useState("idle");
+
+  const [todoEdit, setTodoEdit] = useState(null);
 
   /**
    * Không cần thiết phải sử dụng useState
@@ -18,6 +35,8 @@ export function TodoList() {
   };
 
   const handleAddTodo = () => {
+    setFetchStatus("fetching");
+
     fetch(`${BASE_URL}/Todos`, {
       method: "post",
 
@@ -31,22 +50,32 @@ export function TodoList() {
       },
     }).then((r) => {
       if (r.ok) {
-        alert("Thêm thành công.");
+        setFetchStatus("success");
+
+        // Sau khi add thành công thì cập nhật lại giá trị của input thành rỗng
+        setInputTodo("");
+
+        // Focus lại ô input sau khi thêm thành công.
+        inputRef.current.focus();
+
+        // Fetch lại list todo mới để cập nhật UI
+        getListTodo();
       } else {
-        alert("Thêm thất bại !!!");
+        setFetchStatus("fail");
       }
     });
-
-    // Fetch lại list todo mới để cập nhật UI
   };
 
-  useEffect(() => {
+  const getListTodo = () => {
+    setFetchStatus("fetching");
     fetch(`${BASE_URL}/Todos`)
       .then((r) => {
         if (r.ok) {
+          setFetchStatus("success");
           return r.json();
         }
 
+        setFetchStatus("fail");
         throw "get list todo error";
       })
       .then((r) => {
@@ -62,10 +91,142 @@ export function TodoList() {
       .catch((error) => {
         console.log(error);
       });
+  };
+
+  const handleDeleteTodo = (id) => {
+    setFetchStatus("fetching");
+
+    fetch(`${BASE_URL}/Todos/${id}`, {
+      method: "delete",
+    }).then((r) => {
+      if (r.ok) {
+        setFetchStatus("success");
+        getListTodo();
+      } else {
+        setFetchStatus("fail");
+      }
+    });
+  };
+
+  const handleCompleteTodo = (id) => {
+    setFetchStatus("fetching");
+
+    fetch(`${BASE_URL}/Todos/${id}`, {
+      method: "put",
+
+      body: JSON.stringify({
+        completed: true,
+      }),
+
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).then((r) => {
+      if (r.ok) {
+        setFetchStatus("success");
+        getListTodo();
+      } else {
+        setFetchStatus("fail");
+        alert("Cập nhật thất bại.");
+      }
+    });
+  };
+
+  const handlePendingTodo = (id) => {
+    setFetchStatus("fetching");
+
+    fetch(`${BASE_URL}/Todos/${id}`, {
+      method: "put",
+
+      body: JSON.stringify({
+        completed: false,
+      }),
+
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).then((r) => {
+      if (r.ok) {
+        setFetchStatus("success");
+        getListTodo();
+      } else {
+        setFetchStatus("fail");
+        alert("Cập nhật thất bại.");
+      }
+    });
+  };
+
+  const handleEditTodo = (todo) => {
+    setInputTodo(todo.name);
+
+    setTodoEdit(todo);
+  };
+
+  const handleUpdateTodo = () => {
+    setFetchStatus("fetching");
+
+    fetch(`${BASE_URL}/Todos/${todoEdit.id}`, {
+      method: "put",
+
+      body: JSON.stringify({
+        name: inputTodo,
+      }),
+
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).then((r) => {
+      if (r.ok) {
+        setFetchStatus("success");
+
+        setTodoEdit(null);
+        setInputTodo(""); // re-render
+        // inputTodo // chưa bị reset
+
+        // C1: chậm, request network để get list mới
+        // getListTodo();
+
+        // C2: thay đổi trực tiếp mảng listTodo
+        // Deep clone
+        const cloneListTodo = JSON.parse(JSON.stringify(listTodo));
+
+        const findTodo = cloneListTodo.find((todo) => {
+          return todo.id === todoEdit.id;
+        });
+
+        if (findTodo) {
+          // Cập nhật name của todo tìm kiếm được bằng input người dùng nhập vào
+          findTodo.name = inputTodo;
+
+          // Cập nhật lại list todo
+          setListTodo(cloneListTodo);
+        }
+
+        // 1 lần re-render - batching state
+        // inputTodo => ""
+        // setListTodo => cloneListTodo
+      } else {
+        setFetchStatus("fail");
+      }
+    });
+  };
+
+  useEffect(() => {
+    getListTodo();
+  }, []);
+
+  useEffect(() => {
+    console.log("inputRef", inputRef);
   }, []);
 
   return (
     <>
+      {fetchStatus === "fetching" && (
+        <div className="absolute inset-0 bg-[#8080805d]">
+          <Loading />
+        </div>
+      )}
+
       <div className="p-6 bg-gray-100 min-h-screen">
         <h1 className="text-3xl font-bold text-center mb-6">Todo list</h1>
 
@@ -78,12 +239,14 @@ export function TodoList() {
             value={inputTodo}
             // Chiều 2
             onChange={handleChangeInputTodo}
+            // step 2: truyền biến lưu trữ ref vào cho thuộc tính ref của element mà mình muốn lấy
+            ref={inputRef}
           />
           <button
-            onClick={handleAddTodo}
+            onClick={todoEdit ? handleUpdateTodo : handleAddTodo}
             className="bg-blue-500 text-white px-4 py-2 rounded-r hover:bg-blue-600"
           >
-            Add
+            {todoEdit ? "Update" : "Add"}
           </button>
         </div>
 
@@ -99,13 +262,36 @@ export function TodoList() {
             {listPendingTodo.map((todo) => {
               return (
                 <Fragment key={todo.id}>
-                  <div className="todo-item flex justify-between items-center bg-gray-50 p-3 rounded mb-3">
+                  <div
+                    onClick={() => {
+                      // console.log("update");
+                      handleEditTodo(todo);
+                    }}
+                    className="todo-item flex justify-between items-center bg-gray-50 p-3 rounded mb-3"
+                  >
                     <p>{todo.name}</p>
                     <div className="flex space-x-2">
-                      <button className="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600">
+                      <button
+                        onClick={(event) => {
+                          // Chặn lại sự kiện lan truyền event bubbling
+                          event.stopPropagation();
+                          // console.log("complete");
+
+                          handleCompleteTodo(todo.id);
+                        }}
+                        className="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600"
+                      >
                         Complete
                       </button>
-                      <button className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600">
+                      <button
+                        onClick={(event) => {
+                          event.stopPropagation();
+                          
+                          handleDeleteTodo(todo.id);
+                        }}
+                        // onClick={handleDeleteTodo(todo.id)} // ❌ sai
+                        className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
+                      >
                         Delete
                       </button>
                     </div>
@@ -124,10 +310,20 @@ export function TodoList() {
                   <div className="todo-item flex justify-between items-center bg-gray-50 p-3 rounded mb-3">
                     <p className="line-through">{todo.name}</p>
                     <div className="flex space-x-2">
-                      <button className="bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-600">
+                      <button
+                        onClick={() => {
+                          handlePendingTodo(todo.id);
+                        }}
+                        className="bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-600"
+                      >
                         Todo
                       </button>
-                      <button className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600">
+                      <button
+                        onClick={() => {
+                          handleDeleteTodo(todo.id);
+                        }}
+                        className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
+                      >
                         Delete
                       </button>
                     </div>
