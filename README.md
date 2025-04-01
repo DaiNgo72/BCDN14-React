@@ -271,21 +271,32 @@ const clone = JSON.parse(JSON.stringify(data))
 - performance kém vì phải re-render nhiều lần
 
 # Event Bubbling vs capturing
+
 <https://javascript.info/bubbling-and-capturing#stopping-bubbling>
 
------
-# Deploy server
+---
+
+# Deploy server - FREE (render.com, netlify.com, vercel.com, ...)
+
 - build
 - minify: làm nhỏ kích thước file lại
 - network
 - đường dẫn
 
 # Routing
+
 - SPA
 - HTML - MPA
 - react-router
 
-
 # Bundle Code
+
 - vite
 - webpack
+
+# Single Page Application
+- 1 trang web chỉ có 1 trang HTML duy nhất
+- Sử dụng js để render ra nhiều trang web khác nhau
+- Tránh reload lại trang web nhiều nhất có thể
+
+# Multiple Page Application
