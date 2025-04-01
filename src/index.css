@@ -6,3 +6,8 @@
     --breakpoint-3xl: 100rem;
     --breakpoint-sm: 30rem;
 }
+
+/* 1. External Style */
+a.active {
+    text-decoration: underline;
+}

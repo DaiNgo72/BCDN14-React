@@ -300,3 +300,30 @@ const clone = JSON.parse(JSON.stringify(data))
 - Tránh reload lại trang web nhiều nhất có thể
 
 # Multiple Page Application
+
+
+# BrowserRouter
+- Quản lý history của app
+
+# Routes vs Route
+
+# element vs Component
+
+# a vs Link
+- a: reload trang
+- Link: không reload trang web
+
+# Outlet
+- Render route con của bên trong route cha
+- nesting - lồng nhau
+
+
+# Link vs NavLink
+- Link: không có trạng thái
+- NavLink có trạng thái
+
+# useNavigate vs Link | NavLink
+- useNavigate: muốn xử lý trước khi quyết định di chuyển trang
+- Link | NavLink: click phát là đi ngay luôn
+
+# Cách thành phần của url

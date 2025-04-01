@@ -1,17 +1,45 @@
 import { Routes, Route } from "react-router";
 import { Watch } from "./pages/Watch";
 import { MarketPlace } from "./pages/MarketPlace";
+import { BaseTemplate } from "./templates/BaseTemplate";
+import { GroupFeed } from "./pages/GroupFeed";
+import { Home } from "./pages/Home";
+import { NotFound } from "./pages/NotFound";
+import { Login } from "./pages/Login";
 
 function App() {
   return (
     <>
       <Routes>
-        <Route path="watch" element={<Watch />}></Route>
-        <Route path="marketplace" Component={MarketPlace}></Route>
+        {/* Page nhìn thấy đầu tiên khi vào trang web của mình */}
+        {/* 1. */}
+        {/* <Route path="/" Component={Home}></Route> */}
+        {/* 2. */}
+        {/* <Route path="" Component={Home}></Route> */}
+        {/* 3. */}
+        <Route index Component={Home}></Route>
 
+        <Route path="home" Component={Home}></Route>
 
+        {/* Setup những component có chung template */}
+        <Route Component={BaseTemplate}>
+          <Route path="watch" element={<Watch />}></Route>
+          <Route path="marketplace" Component={MarketPlace}></Route>
+          <Route path="groups/feed" Component={GroupFeed}></Route>
+        </Route>
 
+        <Route path="login" Component={Login}></Route>
 
+        <Route path="bao/:id"></Route>
+
+        {/* 
+          - Wildcard: `*`
+          This route will match any undefined paths and can be used for a 404 page.
+
+          - hình dung:
+          case default trong switch case
+        */}
+        <Route path="*" Component={NotFound}></Route>
       </Routes>
     </>
   );
