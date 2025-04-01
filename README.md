@@ -272,3 +272,20 @@ const clone = JSON.parse(JSON.stringify(data))
 
 # Event Bubbling vs capturing
 <https://javascript.info/bubbling-and-capturing#stopping-bubbling>
+
+-----
+# Deploy server
+- build
+- minify: làm nhỏ kích thước file lại
+- network
+- đường dẫn
+
+# Routing
+- SPA
+- HTML - MPA
+- react-router
+
+
+# Bundle Code
+- vite
+- webpack

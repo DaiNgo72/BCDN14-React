@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { LifeCycle } from "./modules/life-cycle/LifeCycle";
+import { TodoList } from "./modules/life-cycle/TodoList";
 
 function App() {
   const [show, setShow] = useState(true);
 
   return (
     <>
+      <TodoList />
       <button
         onClick={() => {
           setShow(!show);
