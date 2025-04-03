@@ -1,6 +1,10 @@
-import { useNavigate } from "react-router";
+import { useNavigate, useSearchParams } from "react-router";
 
 export function Login() {
+  const [searchParams] = useSearchParams();
+  // console.log("to :::", searchParams.get("to"));
+  const to = searchParams.get("to");
+
   // Step 1: lấy function navigate
   const navigate = useNavigate();
 
@@ -13,8 +17,17 @@ export function Login() {
     const data = Object.fromEntries(formData);
 
     if (data.username === "cyber" && data.password === "cyber") {
-      // nhảy sang trang home
-      navigate("/home"); // Step 2: nhảy đến đường dẫn mình mong muốn.
+      // Lưu vào localStorage để thể hiện người dùng đã login thành công
+      // localStrorage (5MB) khi reload trang web không bị mất giá trị
+      localStorage.setItem("isLogin", true);
+
+      
+      if (to) {
+        navigate(to);
+      } else {
+        // nhảy sang trang home
+        navigate("/home"); // Step 2: nhảy đến đường dẫn mình mong muốn.
+      }
     }
   };
 

@@ -295,14 +295,15 @@ const clone = JSON.parse(JSON.stringify(data))
 - webpack
 
 # Single Page Application
+
 - 1 trang web chỉ có 1 trang HTML duy nhất
 - Sử dụng js để render ra nhiều trang web khác nhau
 - Tránh reload lại trang web nhiều nhất có thể
 
 # Multiple Page Application
 
-
 # BrowserRouter
+
 - Quản lý history của app
 
 # Routes vs Route
@@ -310,20 +311,53 @@ const clone = JSON.parse(JSON.stringify(data))
 # element vs Component
 
 # a vs Link
+
 - a: reload trang
 - Link: không reload trang web
 
 # Outlet
+
 - Render route con của bên trong route cha
 - nesting - lồng nhau
 
-
 # Link vs NavLink
+
 - Link: không có trạng thái
 - NavLink có trạng thái
 
-# useNavigate vs Link | NavLink
+# useNavigate vs Link | NavLink & Navigate
+
 - useNavigate: muốn xử lý trước khi quyết định di chuyển trang
 - Link | NavLink: click phát là đi ngay luôn
 
 # Cách thành phần của url
+
+# Protected Route ( Private Route )
+
+- Không muốn ai cũng có quyền vào những route này, mà phải thỏa mãn một số điều kiện nhất định (vd như trang shoppe thì để xem được chi tiết sản phẩm thì phải đăng nhập)
+
+# Quy tắc sử dụng hook
+
+- Phải đặt trên đầu component
+- Không cần quan tâm thứ tự đặt trước sau của các hook
+
+❌ Sai:
+
+- đặt ở if else
+- for
+- function
+
+# Query string
+
+- Cung cấp thêm thông tin khi người dùng di chuyển sang trang web khác
+- Không ảnh hưởng đến việc di chuyển giữa các route (page)
+
+```js
+// key=value
+"?key1=value1&key2=value2&key3=value"
+```
+
+```js
+const [searchParams] = useSearchParams();
+const to = searchParams.get("to");
+```

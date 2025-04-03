@@ -6,6 +6,7 @@ import { GroupFeed } from "./pages/GroupFeed";
 import { Home } from "./pages/Home";
 import { NotFound } from "./pages/NotFound";
 import { Login } from "./pages/Login";
+import { PrivateRoute } from "./templates/PrivateRoute";
 
 function App() {
   return (
@@ -22,10 +23,13 @@ function App() {
         <Route path="home" Component={Home}></Route>
 
         {/* Setup những component có chung template */}
-        <Route Component={BaseTemplate}>
-          <Route path="watch" element={<Watch />}></Route>
-          <Route path="marketplace" Component={MarketPlace}></Route>
-          <Route path="groups/feed" Component={GroupFeed}></Route>
+        {/* url: /watch */}
+        <Route Component={PrivateRoute}>
+          <Route Component={BaseTemplate}>
+            <Route path="watch" element={<Watch />}></Route>
+            <Route path="marketplace" Component={MarketPlace}></Route>
+            <Route path="groups/feed" Component={GroupFeed}></Route>
+          </Route>
         </Route>
 
         <Route path="login" Component={Login}></Route>
