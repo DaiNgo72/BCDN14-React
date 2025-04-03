@@ -7,6 +7,7 @@ import { Home } from "./pages/Home";
 import { NotFound } from "./pages/NotFound";
 import { Login } from "./pages/Login";
 import { PrivateRoute } from "./templates/PrivateRoute";
+import { Register } from "./pages/Register";
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
         </Route>
 
         <Route path="login" Component={Login}></Route>
+        <Route path="register" Component={Register}></Route>
 
         <Route path="bao/:id"></Route>
 
