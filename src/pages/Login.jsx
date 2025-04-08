@@ -11,9 +11,11 @@ import * as yup from "yup";
  *  + Bắt buộc (Không được bỏ trống)
  *  + Từ 5 ký tự trở lên (Không được nhập nhỏ hơn 5 ký tự)
  *  + Từ 50 ký tự trở xuống (Không được nhập nhiều hơn 50 ký tự)
+ *  + Không được nhập số
  *
  * - password:
  *  + Bắt buộc (Không được bỏ trống)
+ *
  *  + Từ 8 ký tự trở lên (Không được nhập nhỏ hơn 8 ký tự)
  *  + Từ 50 ký tự trở xuống (Không được nhập nhiều hơn 50 ký tự)
  *  + Phải có 1 ký tự chữ hoa
@@ -22,18 +24,62 @@ import * as yup from "yup";
  *  + 1 chữ bình thường
  */
 
+const LoginSchema = yup.object({
+  username: yup
+    .string()
+    .min(5, "Không được nhập nhỏ hơn 5 ký tự")
+    .max(50, "Không được nhập nhiều hơn 50 ký tự")
+    .matches(/^[^\d]*$/, "Không được nhập số")
+    .required("Không được bỏ trống"),
+
+  password: yup
+    .string()
+    .min(8, "Không được nhập nhỏ hơn 8 ký tự")
+    .max(50, "Không được nhập nhiều hơn 50 ký tự")
+    .matches(/[A-Z]/, "Phải có ít nhất 1 ký tự chữ hoa")
+    .matches(/[!@#$%^&*(),.?":{}|<>]/, "Phải có ít nhất 1 ký tự đặc biệt")
+    .matches(/\d/, "Phải có ít nhất 1 số")
+    .matches(/[a-z]/, "Phải có ít nhất 1 chữ thường")
+    .required("Không được bỏ trống"),
+});
+
 const sv = {
+  id: 1,
   age: 20,
   username: "nguyen van a",
 };
 
 const StudentSchema = yup.object({
-  id: yup.number(),
-  age: yup.number(),
-  username: yup.string(),
+  id: yup.number().required(),
+  age: yup.number().required(),
+  username: yup.string().required(),
 });
 
+StudentSchema.isValid(sv).then((r) => {
+  console.log("success", r);
+});
 
+function sum(a, b) {
+  if (yup.number().isValidSync(a) && yup.number().isValidSync(b)) return a + b;
+
+  return null;
+}
+
+console.log(sum(3, 4));
+console.log(sum(3, "4a"));
+
+/**
+ * day 1:
+ * {
+ * success: true,
+ * data: [{id:1, name: ""}, {id: 2, name: ""}]
+ * }
+ *
+ * data[0].name
+ *
+ * day 2:
+ *
+ */
 
 export function Login() {
   const {
@@ -51,17 +97,24 @@ export function Login() {
       password: "",
     },
 
+    //#region validate
+
+    // Cách 1: Thủ công
     // Nơi return về state errors
-    validate: (values) => {
-      // handle error manual
-      let errors = {};
+    // validate: (values) => {
+    //   // handle error manual
+    //   let errors = {};
 
-      if (values.username.trim().length === 0) {
-        errors.username = "Không được bỏ trống username";
-      }
+    //   if (values.username.trim().length === 0) {
+    //     errors.username = "Không được bỏ trống username";
+    //   }
 
-      return errors;
-    },
+    //   return errors;
+    // },
+
+    // Cách 2: Sử dụng schema
+    validationSchema: LoginSchema,
+    //#endregion
 
     // Khi submit thì sẽ gọi hàm này
     onSubmit: (values) => {

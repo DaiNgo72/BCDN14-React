@@ -363,3 +363,11 @@ const to = searchParams.get("to");
 ```
 
 # formik + yup
+
+# Schema
+
+- Validate dữ liệu form
+- Validate dữ liệu api trả về coi thử đúng format chưa
+- Validate dữ liệu khi truyền vào function
+- Validate dữ liệu khi truyền vào props của component
+- ...
