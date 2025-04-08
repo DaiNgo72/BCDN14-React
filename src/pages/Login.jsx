@@ -1,6 +1,39 @@
 import { useNavigate, useSearchParams } from "react-router";
 
 import { useFormik } from "formik";
+// Import hết tất cả những export của library yup dưới cái tên mới là y
+// import {array, object} from 'yup';
+import * as yup from "yup";
+
+/**
+ * Schema login
+ * - username:
+ *  + Bắt buộc (Không được bỏ trống)
+ *  + Từ 5 ký tự trở lên (Không được nhập nhỏ hơn 5 ký tự)
+ *  + Từ 50 ký tự trở xuống (Không được nhập nhiều hơn 50 ký tự)
+ *
+ * - password:
+ *  + Bắt buộc (Không được bỏ trống)
+ *  + Từ 8 ký tự trở lên (Không được nhập nhỏ hơn 8 ký tự)
+ *  + Từ 50 ký tự trở xuống (Không được nhập nhiều hơn 50 ký tự)
+ *  + Phải có 1 ký tự chữ hoa
+ *  + 1 ký tự đặc biệt
+ *  + 1 số
+ *  + 1 chữ bình thường
+ */
+
+const sv = {
+  age: 20,
+  username: "nguyen van a",
+};
+
+const StudentSchema = yup.object({
+  id: yup.number(),
+  age: yup.number(),
+  username: yup.string(),
+});
+
+
 
 export function Login() {
   const {
@@ -20,19 +53,27 @@ export function Login() {
 
     // Nơi return về state errors
     validate: (values) => {
-      // return {
-      //   username: "Không được bỏ trống",
-      //   password: "Không được ít hơn 8 ký tự",
-      // };
+      // handle error manual
+      let errors = {};
 
-      return {};
+      if (values.username.trim().length === 0) {
+        errors.username = "Không được bỏ trống username";
+      }
+
+      return errors;
     },
 
     // Khi submit thì sẽ gọi hàm này
     onSubmit: (values) => {
+      // Nơi xử lý chính của mình, sumbit dữ liệu của form...
+
+      console.log("submit");
       console.log(values);
     },
   });
+
+  console.log("error", errors);
+  console.log("touched", touched);
 
   // getFieldProps("username")
   // => {
@@ -95,6 +136,11 @@ export function Login() {
               required
               className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
+
+            {/* Người dùng từng đi qua field này và có error thì chúng ta mới hiển thị lên */}
+            {touched.username && errors.username && (
+              <span className="text-red-500">{errors.username}</span>
+            )}
           </div>
           <div className="mb-6">
             <label
@@ -111,6 +157,10 @@ export function Login() {
               required
               className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
+
+            {touched.password && errors.password && (
+              <span className="text-red-500">{errors.password}</span>
+            )}
           </div>
           <button
             type="submit"
