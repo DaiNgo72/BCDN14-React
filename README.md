@@ -371,3 +371,43 @@ const to = searchParams.get("to");
 - Validate dữ liệu khi truyền vào function
 - Validate dữ liệu khi truyền vào props của component
 - ...
+
+# Global State
+
+Chỉ có một state duy nhất và giống nhau cho toàn bộ app hay là component
+
+- theme
+- user login
+
+- Xử lý một số logic ...
+
+# Local State
+
+```jsx
+function Count(){
+  const [c, setC] = useState(0);
+
+  return <>
+    <button>{c}</button>
+  </>
+}
+
+<Count />
+<Count />
+<Count />
+<Count />
+```
+
+# Custom hook
+
+- Là function mà bên trong nó có sử dụng hook
+
+# Function bình thường
+
+- là function không có sử dụng hook bên trong
+
+# Management State
+Global State
+
+- Redux
+- Zustand

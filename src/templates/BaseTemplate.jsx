@@ -2,31 +2,38 @@
 // export function BaseTemplate(props) {
 // const children = props.children
 
-import { Outlet, Link, NavLink } from "react-router";
+import cn from "classnames";
+import { Link, NavLink, Outlet } from "react-router";
+import { useThemeContext } from "../providers/ThemeProvider";
 
 // # New
 // Destructuring
 export function BaseTemplate({ children }) {
+  const { theme, setTheme } = useThemeContext();
+
   return (
     <>
       <header className="bg-blue-600 text-white p-4">
-        <h1 className="text-2xl font-bold">Facebook</h1>
-
-        <nav className="mt-2">
-          <NavLink
-            // 2. Style Inline với props style khi có thẻ liên kết được active
-            // style={(props) => {
-            //   return {
-            //     color: props.isActive ? "red" : "blue",
-            //   };
-            // }}
-            to="/watch"
-            // 3. ClassName
-            className={(props) => {
-              return props.isActive
-                ? "text-red-500 underline"
-                : "text-white hover:underline";
+        <div className="flex justify-between items-center">
+          <h1 className="text-2xl font-bold">Facebook</h1>
+          <button
+            onClick={() => {
+              setTheme(theme === "dark" ? "light" : "dark");
             }}
+            className="bg-white text-blue-600 px-4 py-2 rounded hover:bg-gray-200"
+          >
+            Toggle
+          </button>
+        </div>
+
+        <nav className="mt-2 flex space-x-4">
+          <NavLink
+            to="/watch"
+            className={(props) =>
+              props.isActive
+                ? "text-red-500 underline"
+                : "text-white hover:underline"
+            }
           >
             Watch
           </NavLink>
@@ -46,7 +53,12 @@ export function BaseTemplate({ children }) {
       {/* Outlet: Điền vị trị của route con trong template dùng chung */}
       <Outlet />
 
-      <footer className="bg-gray-800 text-white p-4 text-center">
+      <footer
+        className={cn(
+          "text-white p-4 text-center",
+          theme === "dark" ? "bg-black" : "bg-blue-500"
+        )}
+      >
         Footer Facebook
       </footer>
     </>

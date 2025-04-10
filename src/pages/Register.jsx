@@ -1,6 +1,11 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { UserLoginContext } from "../App";
 
 function Error({ touches, errors, name }) {
+  const value = useContext(UserLoginContext);
+
+  console.log(value);
+
   return (
     <>
       {touches[name] && errors[name] && (
@@ -16,7 +21,10 @@ function Error({ touches, errors, name }) {
  * - handleBlur: sau khi người dùng rời đi thì mới hiển thị error
  */
 
-export function Register() {
+/**
+ * props drilling
+ */
+export function Register(props) {
   const [values, setValues] = useState({
     username: "",
     email: "",
@@ -161,7 +169,12 @@ export function Register() {
               <span className="text-red-500">{errors.username}</span>
             )} */}
 
-            <Error touches={touches} errors={errors} name={"username"} />
+            <Error
+              userLogin={props.userLogin}
+              touches={touches}
+              errors={errors}
+              name={"username"}
+            />
           </div>
 
           <div className="mb-4">
@@ -178,7 +191,12 @@ export function Register() {
               name="email"
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
-            <Error touches={touches} errors={errors} name={"email"} />
+            <Error
+              userLogin={props.userLogin}
+              touches={touches}
+              errors={errors}
+              name={"email"}
+            />
           </div>
 
           <div className="mb-4">
@@ -195,7 +213,12 @@ export function Register() {
               name="phone"
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
-            <Error touches={touches} errors={errors} name={"phone"} />
+            <Error
+              userLogin={props.userLogin}
+              touches={touches}
+              errors={errors}
+              name={"phone"}
+            />
           </div>
 
           <div className="mb-4">
