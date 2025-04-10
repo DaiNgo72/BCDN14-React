@@ -1,12 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
+import { countReducer } from './count.slice'
 
 // B1: Khởi tạo store
 // - Chỉ cần khởi tạo một lần duy nhất
 export const store = configureStore({
     reducer: {
-        countReducer: (state = { count: 1 }) => {
-            return state
-        }
+        count: countReducer,
     }
 })
 

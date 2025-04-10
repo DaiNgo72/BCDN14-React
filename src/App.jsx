@@ -1,15 +1,15 @@
-import { Routes, Route } from "react-router";
-import { Watch } from "./pages/Watch";
-import { MarketPlace } from "./pages/MarketPlace";
-import { BaseTemplate } from "./templates/BaseTemplate";
+import { createContext, useState } from "react";
+import { Route, Routes } from "react-router";
+import { Count } from "./modules/redux/Count";
 import { GroupFeed } from "./pages/GroupFeed";
 import { Home } from "./pages/Home";
-import { NotFound } from "./pages/NotFound";
 import { Login } from "./pages/Login";
-import { PrivateRoute } from "./templates/PrivateRoute";
+import { MarketPlace } from "./pages/MarketPlace";
+import { NotFound } from "./pages/NotFound";
 import { Register } from "./pages/Register";
-import { useState, createContext } from "react";
+import { Watch } from "./pages/Watch";
 import { ThemeProvider } from "./providers/ThemeProvider";
+import { BaseTemplate } from "./templates/BaseTemplate";
 
 // Bước 1: tạo context để lưu giữa state
 export const UserLoginContext = createContext();
@@ -56,7 +56,7 @@ function App() {
               element={<Register userLogin={userLogin} />}
             ></Route>
 
-            <Route path="bao/:id"></Route>
+            <Route path="/redux/count" Component={Count}></Route>
 
             {/* 
           - Wildcard: `*`

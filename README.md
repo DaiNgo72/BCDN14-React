@@ -411,3 +411,15 @@ Global State
 
 - Redux
 - Zustand
+
+
+# Redux
+
+- @reduxjs/toolkit
+- react-redux
+
+## reducer
+- Nơi mà chúng ta lưu trữ global state riêng lẻ
+
+## slice
+- giúp chúng ta tạo ra reducer và action thống nhất cho những dự án sử dụng redux
